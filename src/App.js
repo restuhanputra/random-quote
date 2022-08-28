@@ -11,32 +11,22 @@ class App extends Component {
     author: '',
   };
 
-  componentDidMount() {
-    GetQuotes().then((data) => {
-      // JSON.stringify() - convert an object to json
-      // JSON.parse() - convert json to an object
-      // console.log(data);
-      // console.log(JSON.parse(data)); // kaerna mengunakan axios jadi sudah di responsenya json
+  componentDidMount = () => {
+    this.getQuotes();
+  };
 
+  getQuotes = () => {
+    GetQuotes().then((data) => {
       this.setState({
         quote: data.content,
         author: data.author,
       });
+      console.log('data:', data);
     });
-  }
+  };
 
   handleClick = () => {
-    GetQuotes().then((data) => {
-      // JSON.stringify() - convert an object to json
-      // JSON.parse() - convert json to an object
-      // console.log(data);
-      // console.log(JSON.parse(data)); // kaerna mengunakan axios jadi sudah di responsenya json
-
-      this.setState({
-        quote: data.content,
-        author: data.author,
-      });
-    });
+    this.getQuotes();
   };
 
   render() {
@@ -46,21 +36,23 @@ class App extends Component {
           Random Quote App
         </Typography>
         <Card className="card">
-          <Typography variant="h5" paragraph={true}>
-            {this.state.quote}
-          </Typography>
-          <Typography className="margin-top" color="textSecondary">
-            {this.state.author}
-          </Typography>
-          <hr />
-          <Button
-            className="margin-top"
-            color="primary"
-            variant="outlined"
-            onClick={() => this.handleClick()}
-          >
-            Click for Quote
-          </Button>
+          <CardContent>
+            <Typography variant="h5" paragraph={true}>
+              {this.state.quote}
+            </Typography>
+            <Typography className="margin-top" color="textSecondary">
+              {this.state.author}
+            </Typography>
+            <hr />
+            <Button
+              className="margin-top"
+              color="primary"
+              variant="outlined"
+              onClick={() => this.handleClick()}
+            >
+              Click for Quote
+            </Button>
+          </CardContent>
         </Card>
       </div>
     );
